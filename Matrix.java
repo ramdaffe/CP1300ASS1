@@ -122,8 +122,9 @@ public class Matrix {
                     System.out.print(M.lanematrix[m][n]);
                 }
             }
-        for (int n = 0;n<YSIZE;n++){
-            System.out.print("#");
+        System.out.println(" ");
+        for (int n = 0;n<10;n++){
+            System.out.print(">");
         }
     }
 

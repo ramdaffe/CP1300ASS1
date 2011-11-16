@@ -25,14 +25,11 @@ public class Intersection {
         System.out.println("Enter value of horizontal lane: ");
         return S.nextInt();
     }
-    /*
+
     public static void GlobalMover(Matrix M){
-        int L = 0;
-           if ("c".equals(M.SelectLane(M,L).LanesArray[i])) {
-                M.SelectLane(M,L).LanesArray[i+1] = M.SelectLane(M,L).LanesArray[i];
-                M.SelectLane(M,L).LanesArray[i] = " ";
-            }
-    }*/
+        EWMover(M);
+        NSMover(M);
+    }
 
     public static void EWMover(Matrix M){
         int i = 0;
@@ -52,7 +49,11 @@ public class Intersection {
         M.NSlanes.get(0).LanesArray[i] = " ";
         }
            
-    
+    public static void Say(String S){
+        System.out.println(S);
+    }
+
+
     public static void main(String[] args) {
         int vlane = InputVLane();
         int hlane = InputHLane();
@@ -66,12 +67,12 @@ public class Intersection {
         M1.AddCar(C1,M1);
         M1.AddCar(C2,M1);
         M1.DrawMatrix(M1);
+        Say("initial condition");
         //test 5 times with move in each cycle
         for (int i = 0;i<7;i++){
-            EWMover(M1);
-            NSMover(M1);
+            GlobalMover(M1);
             M1.DrawMatrix(M1);
-            System.out.println("cycle no." + i);
+            Say("cycle no." + (i+1));
         }   
     }
 }
