@@ -25,32 +25,51 @@ public class Intersection {
         System.out.println("Enter value of horizontal lane: ");
         return S.nextInt();
     }
-    
-
     /*
-    public static void MoveCar(Matrix M){
-        for (int i = 0; i< 5; i++){ //TEMPORARY
-            if ("c".equals(M.EWtraffic[i])) {
-                M.EWtraffic[i + 1] = M.EWtraffic[i];
-                M.EWtraffic[i] = " ";
-            } else if ("c".equals(M.NStraffic[i])) {
-                M.NStraffic[i + 1] = M.NStraffic[i];
-                M.NStraffic[i] = " ";
+    public static void GlobalMover(Matrix M){
+        int L = 0;
+           if ("c".equals(M.SelectLane(M,L).LanesArray[i])) {
+                M.SelectLane(M,L).LanesArray[i+1] = M.SelectLane(M,L).LanesArray[i];
+                M.SelectLane(M,L).LanesArray[i] = " ";
             }
-        }
     }*/
+
+    public static void EWMover(Matrix M){
+        int i = 0;
+        while (!"c".equals(M.EWlanes.get(0).LanesArray[i])){
+            i++;
+        }
+        M.EWlanes.get(0).LanesArray[i+1] = "c";
+        M.EWlanes.get(0).LanesArray[i] = " ";
+        }
+
+   public static void NSMover(Matrix M){
+        int i = 0;
+        while (!"c".equals(M.NSlanes.get(0).LanesArray[i])){
+            i++;
+        }
+        M.NSlanes.get(0).LanesArray[i+1] = "c";
+        M.NSlanes.get(0).LanesArray[i] = " ";
+        }
+           
     
     public static void main(String[] args) {
-        //int vlane = InputVLane();
-        //int hlane = InputHLane();
-        Matrix M1 = new Matrix(3,3);
-        Direction D1 = new Direction();
-        //Car C1 = new Car(D1);
-        //M1.InitTrafficMatrix(M1);
-        //M1.AddCar(C1,M1);
+        int vlane = InputVLane();
+        int hlane = InputHLane();
+        Matrix M1 = new Matrix(vlane,hlane);
+        Direction DEW = new Direction();
+        Direction DNS = new Direction();
+        DNS.EW = false; //DNS is NS
+        Car C1 = new Car(DEW);
+        Car C2 = new Car(DNS);
+        M1.InitTrafficMatrix(M1);
+        M1.AddCar(C1,M1);
+        M1.AddCar(C2,M1);
+        M1.DrawMatrix(M1);
         //test 5 times with move in each cycle
-        for (int i = 0;i<5;i++){
-            //MoveCar(M1);
+        for (int i = 0;i<7;i++){
+            EWMover(M1);
+            NSMover(M1);
             M1.DrawMatrix(M1);
             System.out.println("cycle no." + i);
         }   

@@ -13,8 +13,6 @@ public class Matrix {
     String[][] lanematrix;
     ArrayList<Lanes> EWlanes;
     ArrayList<Lanes> NSlanes;
-    //String[] EWtraffic;
-    //String[] NStraffic;
     int v1,vb1,vb2,h1,hb1, hb2 = 0;
     static final int XSIZE = 20;
     static final int YSIZE = 20; 
@@ -73,9 +71,9 @@ public class Matrix {
     }
     
     public void FillNSMatrix(Matrix M){
-        for (int h = 0;h<M.EWlanes.size();h++){
+        for (int h = 0;h<M.NSlanes.size();h++){
             for (int i = 0;i<XSIZE;i++){
-                M.EWlanes.get(h).LanesArray[i] = " "; 
+                M.NSlanes.get(h).LanesArray[i] = " ";
             }
         }
     }
@@ -89,30 +87,32 @@ public class Matrix {
         
         for (int h = 0;h<M.EWlanes.size();h++){
             for (int i = 0;i<XSIZE;i++){
-                M.lanematrix[i][M.getInitPosH(M)+h] = M.EWlanes.get(i).LanesArray[h];
+                M.lanematrix[i][M.getInitPosH(M)+h] = M.EWlanes.get(h).LanesArray[i];
             }
         }
         
         for (int h = 0;h<M.NSlanes.size();h++){
             for (int i = 0;i<YSIZE;i++){
-                M.lanematrix[i][M.getInitPosH(M)+h] = M.EWlanes.get(i).LanesArray[h];
+                M.lanematrix[M.getInitPosV(M)+h][i] = M.NSlanes.get(h).LanesArray[i];
             }
         }
     }
-   /* 
+    
    public void AddCar(Car C, Matrix M){
         if (C.Cardir.EW) {
-            M.EWtraffic[0] = C.DrawCar(C);
+            M.EWlanes.get(0).LanesArray[0] = C.DrawCar(C);
+            //M.EWtraffic[0] = C.DrawCar(C);
         } else {
-            M.NStraffic[0] = C.DrawCar(C);
+            M.NSlanes.get(0).LanesArray[0] = C.DrawCar(C);
+            //M.NStraffic[0] = C.DrawCar(C);
         }
-    }*/
+    }
     
     public void DrawMatrix(Matrix M){
         //M.EWtraffic[0] = "c";
         FillLaneMatrix(M);
-        InitTrafficMatrix(M);
-        //CombineMatrix(M);
+        //InitTrafficMatrix(M);
+        CombineMatrix(M);
         for (int n = 0;n<YSIZE;n++)
             for (int m = 0;m<XSIZE;m++){
                 if (m == 0){
@@ -126,7 +126,11 @@ public class Matrix {
             System.out.print("#");
         }
     }
-    
+
+    //STILL UNDER CONSTRUCTION
+    public Lanes SelectLane(Matrix M, int L){
+        return M.EWlanes.get(L);
+    }
     
     public static void main(String [] args){
         Matrix M  = new Matrix(3,3);
