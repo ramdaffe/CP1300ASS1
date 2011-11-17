@@ -10,12 +10,14 @@ package intersection;
  */
 public class Car {
     Direction Cardir;
+    int currpos;
+    Lanes currlane;
     
     public Car(Direction D){
         Cardir = D;  
     }
     
-    public String DrawCar (Car C){
+    public String DrawCar (){
         return "c";
     }
     
