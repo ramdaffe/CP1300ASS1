@@ -48,12 +48,12 @@ public class Matrix2 {
         for (int i = 0;i<XSIZE;i++)
             for (int j = 0;j<YSIZE;j++) {
                 if ((vb1 < i ) && (i < vb2)) {
-                    lanematrix[i][j] = " ";
+                    lanematrix[i][j] = " "; //VL
                 } else if ((hb1 < j ) && (j < hb2)) {
-                    lanematrix[i][j] = " ";
-                } else if ((i == v1) || (i == (v1+NSlanes.size()+1))) {
+                    lanematrix[i][j] = " "; //HL
+                } else if ((i == vb1) || (i == vb2)) {
                     lanematrix[i][j] = "|";
-                } else if ((j == h1) || (j == (h1+EWlanes.size()+1))) {
+                } else if ((j == hb1) || (j == hb2)) {
                     lanematrix[i][j] = "-";
                 }else {
                     lanematrix[i][j] = " ";
@@ -62,4 +62,55 @@ public class Matrix2 {
             }        
         
     }
+
+    public int GetEWLane(){
+        Random R = new Random();
+        int randomlane = R.nextInt(EWlanes.size());
+        return randomlane;
+    }
+
+    public int GetNSLane(){
+        Random R = new Random();
+        int randomlane = R.nextInt(NSlanes.size());
+        return randomlane;
+    }
+
+    public void AddCar(Direction D){
+        if (D.EW){
+            Car C = new Car(D);
+            C.currpos = getInitPosH();
+            C.currlane = GetEWLane();
+            EWCars.add(C);
+        } else {
+            Car C = new Car(D);
+            C.currpos = getInitPosH();
+            C.currlane = GetNSLane();
+            NSCars.add(C);
+        }
+    }
+
+    public void FillEWMatrix(){
+        for (int h = 0;h<EWlanes.size();h++){
+            for (int i = 0;i<XSIZE;i++){
+                EWlanes.get(h).LanesArray[i] = " ";
+            }
+        }
+        for (Car C: EWCars){
+            EWlanes.get(C.currlane).LanesArray[C.currpos] = "c";
+        }
+
+    }
+
+    public void FillNSMatrix(){
+        for (int h = 0;h<NSlanes.size();h++){
+            for (int i = 0;i<YSIZE;i++){
+                NSlanes.get(h).LanesArray[i] = " ";
+            }
+        }
+        for (Car C: NSCars){
+            NSlanes.get(C.currlane).LanesArray[C.currpos] = "c";
+        }
+
+    }
+
 }

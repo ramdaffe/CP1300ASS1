@@ -11,7 +11,7 @@ package intersection;
 public class Car {
     Direction Cardir;
     int currpos;
-    Lanes currlane;
+    int currlane;
     
     public Car(Direction D){
         Cardir = D;  
